@@ -1,0 +1,71 @@
+service:
+  name: serverless-leaderboard-api
+
+plugins:
+  - serverless-webpack
+  - serverless-prune-plugin
+  - serverless-offline
+
+custom:
+  webpack:
+    includeModules:
+      forceExclude:
+        - aws-sdk
+        - better-sqlite3
+  prune:
+    automatic: true
+    number: 7
+
+package:
+  excludeDevDependencies: true
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: ap-northeast-2
+  apiGateway:
+    minimumCompressionSize: 1024
+  environment:
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
+    REDIS_HOST: ${env:REDIS_HOST}
+    REDIS_PASSWORD: ${env:REDIS_PASSWORD}
+    ADMIN_SECRET: ${env:ADMIN_SECRET}
+
+functions:
+  update:
+    handler: src/handler.update
+    timeout: 10
+    layers:
+      - arn:aws:lambda:ap-northeast-2:467731270623:layer:BetterSqlite3:4
+    events:
+      - http: PUT /{serviceId}/{period}
+  getAll:
+    handler: src/handler.getAll
+    layers:
+      - arn:aws:lambda:ap-northeast-2:467731270623:layer:BetterSqlite3:4
+    events:
+      - http: GET /{serviceId}/{period}
+  top:
+    handler: src/handler.top
+    layers:
+      - arn:aws:lambda:ap-northeast-2:467731270623:layer:BetterSqlite3:4
+    events:
+      - http: GET /{serviceId}/{period}/top
+  me:
+    handler: src/handler.me
+    layers:
+      - arn:aws:lambda:ap-northeast-2:467731270623:layer:BetterSqlite3:4
+    events:
+      - http: GET /{serviceId}/{period}/me
+  around:
+    handler: src/handler.around
+    layers:
+      - arn:aws:lambda:ap-northeast-2:467731270623:layer:BetterSqlite3:4
+    events:
+      - http: GET /{serviceId}/{period}/around
+  drop:
+    handler: src/handler.drop
+    layers:
+      - arn:aws:lambda:ap-northeast-2:467731270623:layer:BetterSqlite3:4
+    events:
+      - http: DELETE /{serviceId}/{period}
