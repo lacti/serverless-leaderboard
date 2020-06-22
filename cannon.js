@@ -2,7 +2,7 @@
 const fetch = require("node-fetch");
 const pLimit = require("p-limit");
 
-const limit = pLimit(1);
+const limit = pLimit(32);
 const userCount = 1024 * 1024;
 const testCount = 1024 * 100;
 

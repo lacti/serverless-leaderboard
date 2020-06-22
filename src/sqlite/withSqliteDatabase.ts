@@ -1,0 +1,28 @@
+import SqliteDbContext from "../models/SqliteDbContext";
+import closeSqliteDatabase from "./closeSqliteDatabase";
+import getSqliteDatabase from "./getSqliteDatabase";
+import storeSqliteDatabase from "./storeSqliteDatabase";
+
+export default async function withSqliteDatabase<R>(
+  params: {
+    doIn: (params: SqliteDbContext) => Promise<R>;
+    autoCommit?: boolean;
+  } & Parameters<typeof getSqliteDatabase>[0]
+): Promise<R> {
+  const dbContext = await getSqliteDatabase(params);
+  try {
+    const { doIn } = params;
+    const result = await doIn(dbContext);
+    return result;
+  } finally {
+    const { autoCommit } = params;
+    if (autoCommit) {
+      await storeSqliteDatabase({
+        connection: params.connection,
+        resourceId: params.resourceId,
+        localDbFile: dbContext.localDbFile,
+      });
+    }
+    closeSqliteDatabase(dbContext);
+  }
+}
