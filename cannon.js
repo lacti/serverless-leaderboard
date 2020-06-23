@@ -8,10 +8,10 @@ const testCount = 1024 * 100;
 
 const rand = (maxValue) => Math.floor(Math.random() * maxValue);
 
-const prefix = `http://localhost:3000/dev/__tests__/period`;
-// const prefix = `https://v087sozxhb.execute-api.ap-northeast-2.amazonaws.com/dev/__tests__/period`;
+const prefix =
+  (process.env.API_URL ?? `http://localhost:3000/dev`) + `/__tests__/period`;
 const get = (userId) => {
-  const targetUrl = prefix; // + "/top";
+  const targetUrl = prefix;
   return fetch(targetUrl, {
     headers: {
       "x-user": userId,
