@@ -1,9 +1,10 @@
 import DeadlineTimer from "../../utils/DeadlineTimer";
 import { IRedisConnection } from "@yingyeothon/naive-redis/lib/connection";
 import ResourceId from "../../models/ResourceId";
+import elapsed from "../../elapsed/elapsed";
 import redisTryToAcquireLock from "../../redis/redisTryToAcquireLock";
 
-export default async function tryToAcquireLock({
+async function tryToAcquireLock({
   redisConnection,
   lifetimeWaiter,
   resourceId,
@@ -26,3 +27,5 @@ export default async function tryToAcquireLock({
   }
   return { acquired: false };
 }
+
+export default elapsed(tryToAcquireLock);

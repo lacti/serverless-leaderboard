@@ -4,6 +4,7 @@ import UpdateRequest, {
 
 import { IRedisConnection } from "@yingyeothon/naive-redis/lib/connection";
 import SqliteDbContext from "../../models/SqliteDbContext";
+import elapsed from "../../elapsed/elapsed";
 import findMyNearRanking from "../../db/findMyNearRanking";
 import { rankRecordAsResponse } from "../../models/RankResponse";
 import redisSet from "@yingyeothon/naive-redis/lib/set";
@@ -15,7 +16,7 @@ export default function useProcessRequest({
 }: Pick<SqliteDbContext, "db"> & {
   redisConnection: IRedisConnection;
 }): (request: UpdateRequest) => Promise<void> {
-  return async (request: UpdateRequest): Promise<void> => {
+  async function processRequest(request: UpdateRequest): Promise<void> {
     upsertScore({ db, userId: request.userId, score: request.score });
     const records = rankRecordAsResponse(
       findMyNearRanking({
@@ -32,5 +33,6 @@ export default function useProcessRequest({
         expirationMillis: 5000,
       }
     );
-  };
+  }
+  return elapsed(processRequest);
 }

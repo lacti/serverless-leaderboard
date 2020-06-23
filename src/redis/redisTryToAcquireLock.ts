@@ -2,11 +2,12 @@ import ResourceId, { resourceIdAsRedisLockKey } from "../models/ResourceId";
 
 import DeadlineTimer from "../utils/DeadlineTimer";
 import { IRedisConnection } from "@yingyeothon/naive-redis/lib/connection";
+import elapsed from "../elapsed/elapsed";
 import { nanoid } from "nanoid";
 import redisSet from "@yingyeothon/naive-redis/lib/set";
 import sleep from "../utils/sleep";
 
-export default async function redisTryToAcquireLock({
+async function redisTryToAcquireLock({
   connection,
   resourceId,
   expiredMillis = 30 * 1000,
@@ -34,3 +35,5 @@ export default async function redisTryToAcquireLock({
   }
   return { acquired: false };
 }
+
+export default elapsed(redisTryToAcquireLock);

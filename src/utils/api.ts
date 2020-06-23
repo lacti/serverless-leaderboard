@@ -5,11 +5,12 @@ import {
 } from "aws-lambda";
 
 import ApiError from "./ApiError";
+import flushMeasuredIntoRedis from "../elapsed/flushMeasuredIntoRedis";
 
 export default function api(
   delegate: (event: APIGatewayProxyEvent) => Promise<APIGatewayProxyResult>
 ): APIGatewayProxyHandler {
-  return async (event) => {
+  return async function apiDecorator(event) {
     try {
       return await delegate(event);
     } catch (error) {
@@ -18,6 +19,8 @@ export default function api(
         return error;
       }
       return { statusCode: 400, body: "" };
+    } finally {
+      await flushMeasuredIntoRedis();
     }
   };
 }

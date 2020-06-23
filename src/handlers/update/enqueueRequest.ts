@@ -4,9 +4,10 @@ import ResourceId, {
 
 import { IRedisConnection } from "@yingyeothon/naive-redis/lib/connection";
 import UpdateRequest from "../../models/UpdateRequest";
+import elapsed from "../../elapsed/elapsed";
 import redisRpush from "@yingyeothon/naive-redis/lib/rpush";
 
-export default async function enqueueRequest({
+async function enqueueRequest({
   redisConnection,
   resourceId,
   request,
@@ -23,3 +24,5 @@ export default async function enqueueRequest({
   );
   console.info("Count of enqueued requests", enqueued);
 }
+
+export default elapsed(enqueueRequest);

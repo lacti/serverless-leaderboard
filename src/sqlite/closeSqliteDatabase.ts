@@ -1,11 +1,11 @@
 import * as fs from "fs";
 
 import SqliteDbContext from "../models/SqliteDbContext";
+import { elapsedSync } from "../elapsed/elapsed";
 
-export default function closeSqliteDatabase({
-  db,
-  localDbFile,
-}: SqliteDbContext): void {
+function closeSqliteDatabase({ db, localDbFile }: SqliteDbContext): void {
   db.close();
   fs.unlinkSync(localDbFile);
 }
+
+export default elapsedSync(closeSqliteDatabase);

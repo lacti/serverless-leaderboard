@@ -1,14 +1,22 @@
 import "source-map-support/register";
 
-import { APIGatewayProxyHandler } from "aws-lambda";
+import {
+  APIGatewayProxyEvent,
+  APIGatewayProxyHandler,
+  APIGatewayProxyResult,
+} from "aws-lambda";
+
 import CreateRankingTableSQL from "../db/CreateRankingTableSQL";
+import elapsed from "../elapsed/elapsed";
 import fetchRanking from "../db/fetchRanking";
 import { rankRecordAsResponse } from "../models/RankResponse";
 import resolveResourceIdFromEvent from "../utils/resolveResourceIdFromEvent";
 import withRedisConnection from "../redis/withRedisConnection";
 import withSqliteDatabase from "../sqlite/withSqliteDatabase";
 
-export const handle: APIGatewayProxyHandler = async (event) => {
+async function handleTop(
+  event: APIGatewayProxyEvent
+): Promise<APIGatewayProxyResult> {
   const resourceId = resolveResourceIdFromEvent(event);
   const { offset = "0", limit = "10" } = event.queryStringParameters ?? {};
   const records = await withRedisConnection({
@@ -25,4 +33,6 @@ export const handle: APIGatewayProxyHandler = async (event) => {
     statusCode: 200,
     body: JSON.stringify(records),
   };
-};
+}
+
+export const handle: APIGatewayProxyHandler = elapsed(handleTop);

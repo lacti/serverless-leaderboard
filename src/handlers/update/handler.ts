@@ -1,9 +1,16 @@
 import "source-map-support/register";
 
-import { APIGatewayProxyHandler } from "aws-lambda";
+import {
+  APIGatewayProxyEvent,
+  APIGatewayProxyHandler,
+  APIGatewayProxyResult,
+} from "aws-lambda";
+
 import DeadlineTimer from "../../utils/DeadlineTimer";
 import UpdateRequest from "../../models/UpdateRequest";
 import actorExists from "./actorExists";
+import api from "../../utils/api";
+import elapsed from "../../elapsed/elapsed";
 import enqueueRequest from "./enqueueRequest";
 import { nanoid } from "nanoid";
 import pollUpdateResult from "./pollUpdateResult";
@@ -14,7 +21,9 @@ import withRedisConnection from "../../redis/withRedisConnection";
 
 const deadlineMillisForWaitingResult = 3 * 1000;
 
-export const handle: APIGatewayProxyHandler = async (event) => {
+async function handleUpdate(
+  event: APIGatewayProxyEvent
+): Promise<APIGatewayProxyResult> {
   const resourceId = resolveResourceIdFromEvent(event);
   const userId = event.headers["x-user"] ?? throwError(400)();
   const score = event.body ?? throwError(400)();
@@ -55,4 +64,6 @@ export const handle: APIGatewayProxyHandler = async (event) => {
       return { statusCode: 200, body: result };
     },
   });
-};
+}
+
+export const handle: APIGatewayProxyHandler = api(elapsed(handleUpdate));

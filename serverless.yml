@@ -25,6 +25,9 @@ provider:
   name: aws
   runtime: nodejs12.x
   region: ap-northeast-2
+  tracing:
+    apiGateway: true
+    lambda: true
   apiGateway:
     minimumCompressionSize: 1024
   iamRoleStatements:

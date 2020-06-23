@@ -1,12 +1,13 @@
 import { IRedisConnection } from "@yingyeothon/naive-redis/lib/connection";
 import { Lambda } from "aws-sdk";
 import ResourceId from "../../models/ResourceId";
+import elapsed from "../../elapsed/elapsed";
 import isActorInvokable from "./isActorInvokable";
 import sleep from "../../utils/sleep";
 
 const lambdaColdStartMillis = 200;
 
-export default async function invokeUpdateActor({
+async function invokeUpdateActor({
   redisConnection,
   resourceId,
 }: {
@@ -33,3 +34,5 @@ export default async function invokeUpdateActor({
     console.error("Lambda invocation error", resourceId, error);
   }
 }
+
+export default elapsed(invokeUpdateActor);

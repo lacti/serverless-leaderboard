@@ -3,10 +3,11 @@ import ResourceId, {
 } from "../../models/ResourceId";
 
 import { IRedisConnection } from "@yingyeothon/naive-redis/lib/connection";
+import elapsed from "../../elapsed/elapsed";
 import { nanoid } from "nanoid";
 import redisSet from "@yingyeothon/naive-redis/lib/set";
 
-export default async function registerActor({
+async function registerActor({
   redisConnection,
   resourceId,
   actorLifetime,
@@ -28,3 +29,5 @@ export default async function registerActor({
   );
   return { registered: actorOwned, actorToken };
 }
+
+export default elapsed(registerActor);

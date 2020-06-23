@@ -3,10 +3,11 @@ import ResourceId, {
 } from "../../models/ResourceId";
 
 import { IRedisConnection } from "@yingyeothon/naive-redis/lib/connection";
+import elapsed from "../../elapsed/elapsed";
 import redisDel from "@yingyeothon/naive-redis/lib/del";
 import redisGet from "@yingyeothon/naive-redis/lib/get";
 
-export default async function unregisterActor({
+async function unregisterActor({
   redisConnection,
   resourceId,
   actorToken,
@@ -27,3 +28,5 @@ export default async function unregisterActor({
   }
   await redisDel(redisConnection, actorRedisKey);
 }
+
+export default elapsed(unregisterActor);

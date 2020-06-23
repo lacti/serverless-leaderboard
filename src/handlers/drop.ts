@@ -1,15 +1,23 @@
 import "source-map-support/register";
 
-import { APIGatewayProxyHandler } from "aws-lambda";
+import {
+  APIGatewayProxyEvent,
+  APIGatewayProxyHandler,
+  APIGatewayProxyResult,
+} from "aws-lambda";
+
 import ApiError from "../utils/ApiError";
 import api from "../utils/api";
+import elapsed from "../elapsed/elapsed";
 import redisDel from "@yingyeothon/naive-redis/lib/del";
 import resolveResourceIdFromEvent from "../utils/resolveResourceIdFromEvent";
 import { resourceIdAsRedisSqliteKey } from "../models/ResourceId";
 import withRedisConnection from "../redis/withRedisConnection";
 import withRedisLock from "../redis/withRedisLock";
 
-export const handle: APIGatewayProxyHandler = api(async (event) => {
+async function handleDrop(
+  event: APIGatewayProxyEvent
+): Promise<APIGatewayProxyResult> {
   if (
     process.env.ADMIN_SECRET &&
     event.headers["x-auth"] !== process.env.ADMIN_SECRET
@@ -30,4 +38,6 @@ export const handle: APIGatewayProxyHandler = api(async (event) => {
       }),
   });
   return { statusCode: 200, body: "true" };
-});
+}
+
+export const handle: APIGatewayProxyHandler = api(elapsed(handleDrop));

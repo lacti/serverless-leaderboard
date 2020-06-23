@@ -3,9 +3,10 @@ import ResourceId, {
 } from "../../models/ResourceId";
 
 import { IRedisConnection } from "@yingyeothon/naive-redis/lib/connection";
+import elapsed from "../../elapsed/elapsed";
 import redisSet from "@yingyeothon/naive-redis/lib/set";
 
-export default async function isActorInvokable({
+async function isActorInvokable({
   redisConnection,
   resourceId,
   intervalMillis = 2000,
@@ -27,3 +28,5 @@ export default async function isActorInvokable({
     }
   );
 }
+
+export default elapsed(isActorInvokable);

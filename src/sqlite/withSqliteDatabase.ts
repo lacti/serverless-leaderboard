@@ -1,9 +1,10 @@
 import SqliteDbContext from "../models/SqliteDbContext";
 import closeSqliteDatabase from "./closeSqliteDatabase";
+import elapsed from "../elapsed/elapsed";
 import getSqliteDatabase from "./getSqliteDatabase";
 import storeSqliteDatabase from "./storeSqliteDatabase";
 
-export default async function withSqliteDatabase<R>(
+async function withSqliteDatabase<R>(
   params: {
     doIn: (params: SqliteDbContext) => Promise<R>;
     autoCommit?: boolean;
@@ -26,3 +27,5 @@ export default async function withSqliteDatabase<R>(
     closeSqliteDatabase(dbContext);
   }
 }
+
+export default elapsed(withSqliteDatabase);

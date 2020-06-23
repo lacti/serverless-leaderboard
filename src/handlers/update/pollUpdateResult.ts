@@ -3,10 +3,11 @@ import { IRedisConnection } from "@yingyeothon/naive-redis/lib/connection";
 import ResourceId from "../../models/ResourceId";
 import UpdateRequest from "../../models/UpdateRequest";
 import actorExists from "./actorExists";
+import elapsed from "../../elapsed/elapsed";
 import invokeUpdateActor from "./invokeUpdateActor";
 import retrieveUpdateResult from "./retrieveUpdateResult";
 
-export default async function pollUpdateResult({
+async function pollUpdateResult({
   redisConnection,
   resourceId,
   request,
@@ -29,3 +30,5 @@ export default async function pollUpdateResult({
       }),
   });
 }
+
+export default elapsed(pollUpdateResult);

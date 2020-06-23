@@ -4,6 +4,7 @@ import ResourceId, {
 
 import { IRedisConnection } from "@yingyeothon/naive-redis/lib/connection";
 import UpdateRequest from "../../models/UpdateRequest";
+import elapsed from "../../elapsed/elapsed";
 import redisLrange from "@yingyeothon/naive-redis/lib/lrange";
 import redisLtrim from "@yingyeothon/naive-redis/lib/ltrim";
 
@@ -15,7 +16,7 @@ export default function usePollRequests({
   resourceId: ResourceId;
 }): () => Promise<UpdateRequest[]> {
   const actorQueueRedisKey = resourceIdAsUpdateActorQueueKey(resourceId);
-  return async (): Promise<UpdateRequest[]> => {
+  async function pollRequests(): Promise<UpdateRequest[]> {
     const requestStrings: string[] = await redisLrange(
       redisConnection,
       actorQueueRedisKey,
@@ -31,5 +32,6 @@ export default function usePollRequests({
       );
     }
     return requestStrings.map((each) => JSON.parse(each) as UpdateRequest);
-  };
+  }
+  return elapsed(pollRequests);
 }

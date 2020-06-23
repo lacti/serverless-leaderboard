@@ -1,10 +1,11 @@
 import ResourceId, { resourceIdAsRedisLockKey } from "../models/ResourceId";
 
 import { IRedisConnection } from "@yingyeothon/naive-redis/lib/connection";
+import elapsed from "../elapsed/elapsed";
 import redisDel from "@yingyeothon/naive-redis/lib/del";
 import redisGet from "@yingyeothon/naive-redis/lib/get";
 
-export default async function redisReleaseLock({
+async function redisReleaseLock({
   connection,
   resourceId,
   lockToken,
@@ -25,3 +26,5 @@ export default async function redisReleaseLock({
   }
   await redisDel(connection, lockKey);
 }
+
+export default elapsed(redisReleaseLock);

@@ -1,9 +1,10 @@
 import { IRedisConnection } from "@yingyeothon/naive-redis/lib/connection";
+import elapsed from "../../elapsed/elapsed";
 import redisDel from "@yingyeothon/naive-redis/lib/del";
 import redisGet from "@yingyeothon/naive-redis/lib/get";
 import { updateRequestIdAsResultKey } from "../../models/UpdateRequest";
 
-export default async function retrieveUpdateResult({
+async function retrieveUpdateResult({
   redisConnection,
   requestId,
 }: {
@@ -18,3 +19,5 @@ export default async function retrieveUpdateResult({
   await redisDel(redisConnection, updateResultKey);
   return result;
 }
+
+export default elapsed(retrieveUpdateResult);

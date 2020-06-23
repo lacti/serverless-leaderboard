@@ -2,10 +2,11 @@ import { IRedisConnection } from "@yingyeothon/naive-redis/lib/connection";
 import RankResponse from "../../models/RankResponse";
 import ResourceId from "../../models/ResourceId";
 import UpdateRequest from "../../models/UpdateRequest";
+import elapsed from "../../elapsed/elapsed";
 import updateIntoDatabase from "./updateIntoDatabase";
 import withRedisLock from "../../redis/withRedisLock";
 
-export default async function updateWithLock({
+async function updateWithLock({
   redisConnection,
   resourceId,
   request,
@@ -29,3 +30,5 @@ export default async function updateWithLock({
       await updateIntoDatabase({ redisConnection, resourceId, request }),
   });
 }
+
+export default elapsed(updateWithLock);

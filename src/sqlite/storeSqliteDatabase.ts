@@ -3,9 +3,10 @@ import * as fs from "fs";
 import ResourceId, { resourceIdAsRedisSqliteKey } from "../models/ResourceId";
 
 import { IRedisConnection } from "@yingyeothon/naive-redis/lib/connection";
+import elapsed from "../elapsed/elapsed";
 import redisSet from "@yingyeothon/naive-redis/lib/set";
 
-export default async function storeSqliteDatabase({
+async function storeSqliteDatabase({
   connection,
   resourceId,
   localDbFile,
@@ -22,3 +23,5 @@ export default async function storeSqliteDatabase({
 
   await redisSet(connection, sqliteKey, sqliteBase64);
 }
+
+export default elapsed(storeSqliteDatabase);

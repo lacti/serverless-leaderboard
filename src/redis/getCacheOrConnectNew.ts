@@ -1,5 +1,6 @@
 import { IRedisConnection } from "@yingyeothon/naive-redis/lib/connection";
 import connectToRedis from "./connectToRedis";
+import { elapsedSync } from "../elapsed/elapsed";
 
 const expirationMillis = 3 * 60 * 1000;
 const connectionCache: {
@@ -10,7 +11,7 @@ const connectionCache: {
   expired: 0,
 };
 
-export default function getCacheOrConnectNew(): IRedisConnection {
+export function getCacheOrConnectNew(): IRedisConnection {
   if (
     connectionCache.connection !== null &&
     connectionCache.expired > Date.now()
@@ -25,3 +26,5 @@ export default function getCacheOrConnectNew(): IRedisConnection {
   connectionCache.expired = Date.now() + expirationMillis;
   return connectionCache.connection;
 }
+
+export default elapsedSync(getCacheOrConnectNew);

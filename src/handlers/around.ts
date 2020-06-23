@@ -1,16 +1,24 @@
 import "source-map-support/register";
 
-import { APIGatewayProxyHandler } from "aws-lambda";
+import {
+  APIGatewayProxyEvent,
+  APIGatewayProxyHandler,
+  APIGatewayProxyResult,
+} from "aws-lambda";
+
 import ApiError from "../utils/ApiError";
 import CreateRankingTableSQL from "../db/CreateRankingTableSQL";
 import api from "../utils/api";
+import elapsed from "../elapsed/elapsed";
 import findMyNearRanking from "../db/findMyNearRanking";
 import { rankRecordAsResponse } from "../models/RankResponse";
 import resolveResourceIdFromEvent from "../utils/resolveResourceIdFromEvent";
 import withRedisConnection from "../redis/withRedisConnection";
 import withSqliteDatabase from "../sqlite/withSqliteDatabase";
 
-export const handle: APIGatewayProxyHandler = api(async (event) => {
+async function handleAround(
+  event: APIGatewayProxyEvent
+): Promise<APIGatewayProxyResult> {
   const resourceId = resolveResourceIdFromEvent(event);
   const userId = event.headers["x-user"];
   if (!userId) {
@@ -31,4 +39,6 @@ export const handle: APIGatewayProxyHandler = api(async (event) => {
     statusCode: 200,
     body: JSON.stringify(records),
   };
-});
+}
+
+export const handle: APIGatewayProxyHandler = api(elapsed(handleAround));

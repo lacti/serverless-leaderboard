@@ -3,9 +3,10 @@ import ResourceId, {
 } from "../../models/ResourceId";
 
 import { IRedisConnection } from "@yingyeothon/naive-redis/lib/connection";
+import elapsed from "../../elapsed/elapsed";
 import redisGet from "@yingyeothon/naive-redis/lib/get";
 
-export default async function actorExists({
+async function actorExists({
   redisConnection,
   resourceId,
 }: {
@@ -16,3 +17,5 @@ export default async function actorExists({
   const maybe = await redisGet(redisConnection, actorRedisKey);
   return !!maybe;
 }
+
+export default elapsed(actorExists);

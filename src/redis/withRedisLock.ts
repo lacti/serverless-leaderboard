@@ -1,7 +1,8 @@
+import elapsed from "../elapsed/elapsed";
 import redisReleaseLock from "./redisReleaseLock";
 import redisTryToAcquireLock from "./redisTryToAcquireLock";
 
-export default async function withRedisLock<R>(
+async function withRedisLock<R>(
   params: { doIn: () => Promise<R> } & Parameters<
     typeof redisTryToAcquireLock
   >[0] &
@@ -19,3 +20,5 @@ export default async function withRedisLock<R>(
     await redisReleaseLock({ ...params, lockToken: locked.lockToken! });
   }
 }
+
+export default elapsed(withRedisLock);

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require("path");
 const slsw = require("serverless-webpack");
-// const nodeExternals = require("webpack-node-externals");
+const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
   context: __dirname,
@@ -25,14 +25,7 @@ module.exports = {
     __dirname: true,
     __filename: true,
   },
-  externals: [
-    /aws-sdk/,
-    /better-sqlite3/,
-    // nodeExternals({
-    //   whitelist: (moduleName) => moduleName !== "better-sqlite3",
-    //   modulesFromFile: true,
-    // }),
-  ],
+  externals: [/aws-sdk/, /better-sqlite3/],
   module: {
     rules: [
       {
@@ -50,6 +43,19 @@ module.exports = {
           experimentalWatchApi: true,
         },
       },
+    ],
+  },
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          ie8: false,
+          keep_classnames: true,
+          keep_fnames: true,
+          safari10: false,
+        },
+      }),
     ],
   },
 };

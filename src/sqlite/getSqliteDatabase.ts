@@ -4,12 +4,13 @@ import ResourceId, { resourceIdAsRedisSqliteKey } from "../models/ResourceId";
 
 import { IRedisConnection } from "@yingyeothon/naive-redis/lib/connection";
 import SqliteDbContext from "../models/SqliteDbContext";
+import elapsed from "../elapsed/elapsed";
 import redisGet from "@yingyeothon/naive-redis/lib/get";
 import tempy from "tempy";
 
 import Database = require("better-sqlite3");
 
-export default async function getSqliteDatabase({
+async function getSqliteDatabase({
   connection,
   resourceId,
   createTableQuery,
@@ -33,3 +34,5 @@ export default async function getSqliteDatabase({
   }
   return { db, localDbFile };
 }
+
+export default elapsed(getSqliteDatabase);

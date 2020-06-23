@@ -4,11 +4,12 @@ import CreateRankingTableSQL from "../../db/CreateRankingTableSQL";
 import { IRedisConnection } from "@yingyeothon/naive-redis/lib/connection";
 import ResourceId from "../../models/ResourceId";
 import UpdateRequest from "../../models/UpdateRequest";
+import elapsed from "../../elapsed/elapsed";
 import findMyNearRanking from "../../db/findMyNearRanking";
 import upsertScore from "../../db/upsertScore";
 import withSqliteDatabase from "../../sqlite/withSqliteDatabase";
 
-export default async function updateIntoDatabase({
+async function updateIntoDatabase({
   redisConnection,
   resourceId,
   request: { userId, score, around },
@@ -28,3 +29,5 @@ export default async function updateIntoDatabase({
     },
   });
 }
+
+export default elapsed(updateIntoDatabase);
