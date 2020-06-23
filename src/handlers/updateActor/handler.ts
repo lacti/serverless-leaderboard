@@ -1,4 +1,4 @@
-import "source-map-support/register";
+import "../../utils/sourceMap";
 
 import { Handler } from "aws-lambda";
 import UpdateActorEvent from "../../models/UpdateActorEvent";
