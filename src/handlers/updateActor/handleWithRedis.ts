@@ -27,7 +27,6 @@ async function handleWithRedis({
     actorLifetime,
   });
   if (!actorRegistered.registered) {
-    console.info("Another actor is running");
     return;
   }
 
