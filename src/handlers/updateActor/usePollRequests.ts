@@ -4,7 +4,7 @@ import ResourceId, {
 
 import { IRedisConnection } from "@yingyeothon/naive-redis/lib/connection";
 import UpdateRequest from "../../models/UpdateRequest";
-import elapsed from "../../elapsed/elapsed";
+import elapsed from "../../elapsed";
 import redisLrange from "@yingyeothon/naive-redis/lib/lrange";
 import redisLtrim from "@yingyeothon/naive-redis/lib/ltrim";
 

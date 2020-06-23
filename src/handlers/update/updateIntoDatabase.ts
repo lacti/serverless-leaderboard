@@ -4,7 +4,7 @@ import CreateRankingTableSQL from "../../db/CreateRankingTableSQL";
 import { IRedisConnection } from "@yingyeothon/naive-redis/lib/connection";
 import ResourceId from "../../models/ResourceId";
 import UpdateRequest from "../../models/UpdateRequest";
-import elapsed from "../../elapsed/elapsed";
+import elapsed from "../../elapsed";
 import findMyNearRanking from "../../db/findMyNearRanking";
 import upsertScore from "../../db/upsertScore";
 import withSqliteDatabase from "../../sqlite/withSqliteDatabase";

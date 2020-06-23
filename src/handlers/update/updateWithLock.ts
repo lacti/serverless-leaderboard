@@ -2,7 +2,7 @@ import { IRedisConnection } from "@yingyeothon/naive-redis/lib/connection";
 import RankResponse from "../../models/RankResponse";
 import ResourceId from "../../models/ResourceId";
 import UpdateRequest from "../../models/UpdateRequest";
-import elapsed from "../../elapsed/elapsed";
+import elapsed from "../../elapsed";
 import updateIntoDatabase from "./updateIntoDatabase";
 import withRedisLock from "../../redis/withRedisLock";
 

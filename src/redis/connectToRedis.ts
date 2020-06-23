@@ -2,7 +2,7 @@ import redisConnect, {
   IRedisConnection,
 } from "@yingyeothon/naive-redis/lib/connection";
 
-import { elapsedSync } from "../elapsed/elapsed";
+import { elapsedSync } from "../elapsed";
 
 function connectToRedis(): IRedisConnection {
   return redisConnect({

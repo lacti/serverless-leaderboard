@@ -3,7 +3,7 @@ import * as fs from "fs";
 import ResourceId, { resourceIdAsRedisSqliteKey } from "../models/ResourceId";
 
 import { IRedisConnection } from "@yingyeothon/naive-redis/lib/connection";
-import elapsed from "../elapsed/elapsed";
+import elapsed from "../elapsed";
 import redisSet from "@yingyeothon/naive-redis/lib/set";
 
 async function storeSqliteDatabase({

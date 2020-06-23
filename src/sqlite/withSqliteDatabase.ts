@@ -1,6 +1,6 @@
 import SqliteDbContext from "../models/SqliteDbContext";
 import closeSqliteDatabase from "./closeSqliteDatabase";
-import elapsed from "../elapsed/elapsed";
+import elapsed from "../elapsed";
 import getSqliteDatabase from "./getSqliteDatabase";
 import storeSqliteDatabase from "./storeSqliteDatabase";
 

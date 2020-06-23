@@ -4,7 +4,7 @@ import UpdateRequest, {
 
 import { IRedisConnection } from "@yingyeothon/naive-redis/lib/connection";
 import SqliteDbContext from "../../models/SqliteDbContext";
-import elapsed from "../../elapsed/elapsed";
+import elapsed from "../../elapsed";
 import findMyNearRanking from "../../db/findMyNearRanking";
 import { rankRecordAsResponse } from "../../models/RankResponse";
 import redisSet from "@yingyeothon/naive-redis/lib/set";

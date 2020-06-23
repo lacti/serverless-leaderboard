@@ -4,7 +4,7 @@ import ResourceId, { resourceIdAsRedisSqliteKey } from "../models/ResourceId";
 
 import { IRedisConnection } from "@yingyeothon/naive-redis/lib/connection";
 import SqliteDbContext from "../models/SqliteDbContext";
-import elapsed from "../elapsed/elapsed";
+import elapsed from "../elapsed";
 import redisGet from "@yingyeothon/naive-redis/lib/get";
 import tempy from "tempy";
 

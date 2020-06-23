@@ -8,7 +8,7 @@ import {
 
 import ApiError from "../utils/ApiError";
 import api from "../utils/api";
-import elapsed from "../elapsed/elapsed";
+import elapsed from "../elapsed";
 import redisDel from "@yingyeothon/naive-redis/lib/del";
 import resolveResourceIdFromEvent from "../utils/resolveResourceIdFromEvent";
 import { resourceIdAsRedisSqliteKey } from "../models/ResourceId";

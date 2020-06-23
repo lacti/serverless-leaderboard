@@ -3,7 +3,7 @@ import ResourceId, {
 } from "../../models/ResourceId";
 
 import { IRedisConnection } from "@yingyeothon/naive-redis/lib/connection";
-import elapsed from "../../elapsed/elapsed";
+import elapsed from "../../elapsed";
 import { nanoid } from "nanoid";
 import redisSet from "@yingyeothon/naive-redis/lib/set";
 

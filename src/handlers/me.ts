@@ -8,7 +8,7 @@ import {
 
 import CreateRankingTableSQL from "../db/CreateRankingTableSQL";
 import api from "../utils/api";
-import elapsed from "../elapsed/elapsed";
+import elapsed from "../elapsed";
 import findMyRank from "../db/findMyRank";
 import { rankRecordAsResponse } from "../models/RankResponse";
 import resolveResourceIdFromEvent from "../utils/resolveResourceIdFromEvent";

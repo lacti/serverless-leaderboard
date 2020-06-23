@@ -3,7 +3,7 @@ import { IRedisConnection } from "@yingyeothon/naive-redis/lib/connection";
 import ResourceId from "../../models/ResourceId";
 import UpdateRequest from "../../models/UpdateRequest";
 import actorExists from "./actorExists";
-import elapsed from "../../elapsed/elapsed";
+import elapsed from "../../elapsed";
 import invokeUpdateActor from "./invokeUpdateActor";
 import retrieveUpdateResult from "./retrieveUpdateResult";
 

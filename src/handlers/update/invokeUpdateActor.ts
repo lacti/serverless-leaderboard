@@ -1,7 +1,7 @@
 import { IRedisConnection } from "@yingyeothon/naive-redis/lib/connection";
 import { Lambda } from "aws-sdk";
 import ResourceId from "../../models/ResourceId";
-import elapsed from "../../elapsed/elapsed";
+import elapsed from "../../elapsed";
 import isActorInvokable from "./isActorInvokable";
 import sleep from "../../utils/sleep";
 

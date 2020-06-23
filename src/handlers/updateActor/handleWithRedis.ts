@@ -2,7 +2,7 @@ import CreateRankingTableSQL from "../../db/CreateRankingTableSQL";
 import DeadlineTimer from "../../utils/DeadlineTimer";
 import { IRedisConnection } from "@yingyeothon/naive-redis/lib/connection";
 import ResourceId from "../../models/ResourceId";
-import elapsed from "../../elapsed/elapsed";
+import elapsed from "../../elapsed";
 import redisReleaseLock from "../../redis/redisReleaseLock";
 import registerActor from "./registerActor";
 import tryToAcquireLock from "./tryToAcquireLock";

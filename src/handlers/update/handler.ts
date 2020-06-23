@@ -10,7 +10,7 @@ import DeadlineTimer from "../../utils/DeadlineTimer";
 import UpdateRequest from "../../models/UpdateRequest";
 import actorExists from "./actorExists";
 import api from "../../utils/api";
-import elapsed from "../../elapsed/elapsed";
+import elapsed from "../../elapsed";
 import enqueueRequest from "./enqueueRequest";
 import { nanoid } from "nanoid";
 import pollUpdateResult from "./pollUpdateResult";

@@ -7,7 +7,7 @@ import {
 } from "aws-lambda";
 
 import CreateRankingTableSQL from "../db/CreateRankingTableSQL";
-import elapsed from "../elapsed/elapsed";
+import elapsed from "../elapsed";
 import fetchRanking from "../db/fetchRanking";
 import { rankRecordAsResponse } from "../models/RankResponse";
 import resolveResourceIdFromEvent from "../utils/resolveResourceIdFromEvent";

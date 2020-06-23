@@ -2,7 +2,7 @@ import "../../utils/sourceMap";
 
 import { Handler } from "aws-lambda";
 import UpdateActorEvent from "../../models/UpdateActorEvent";
-import elapsed from "../../elapsed/elapsed";
+import elapsed from "../../elapsed";
 import flushMeasuredIntoRedis from "../../elapsed/flushMeasuredIntoRedis";
 import handleWithRedis from "./handleWithRedis";
 import withRedisConnection from "../../redis/withRedisConnection";

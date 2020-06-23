@@ -1,6 +1,6 @@
 import { IRedisConnection } from "@yingyeothon/naive-redis/lib/connection";
 import connectToRedis from "./connectToRedis";
-import { elapsedSync } from "../elapsed/elapsed";
+import { elapsedSync } from "../elapsed";
 
 const expirationMillis = 3 * 60 * 1000;
 const connectionCache: {

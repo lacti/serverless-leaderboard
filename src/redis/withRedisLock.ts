@@ -1,4 +1,4 @@
-import elapsed from "../elapsed/elapsed";
+import elapsed from "../elapsed";
 import redisReleaseLock from "./redisReleaseLock";
 import redisTryToAcquireLock from "./redisTryToAcquireLock";
 

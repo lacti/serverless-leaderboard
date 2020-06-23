@@ -5,7 +5,7 @@ import {
   APIGatewayProxyHandler,
   APIGatewayProxyResult,
 } from "aws-lambda";
-import elapsed, { elapsedSync } from "../elapsed/elapsed";
+import elapsed, { elapsedSync } from "../elapsed";
 
 import CreateRankingTableSQL from "../db/CreateRankingTableSQL";
 import SqliteDbContext from "../models/SqliteDbContext";
