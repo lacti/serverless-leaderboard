@@ -16,7 +16,7 @@
     "@yingyeothon/naive-redis": "^0.1.4",
     "aws-xray-sdk-core": "^3.1.0",
     "better-sqlite3": "^7.1.0",
-    "nanoid": "^3.1.10",
+    "nanoid": "^3.1.31",
     "node-fetch": "^2.6.0",
     "p-limit": "^3.0.1",
     "serialize-error": "^7.0.1",
